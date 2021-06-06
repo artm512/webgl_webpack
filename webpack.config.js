@@ -18,7 +18,7 @@ module.exports = [
     
     devServer: {
       contentBase: "dist",
-      open: true
+      open: true // 自動的にブラウザが立ち上がる
     },
 
     plugins: [
