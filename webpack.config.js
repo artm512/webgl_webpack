@@ -1,15 +1,17 @@
+const path = require('path');
 const webpack = require('webpack');
+const HtmlWebpackPlugin = require('html-webpack-plugin');
 
 module.exports = [
   {
     // エントリーポイント
-    entry: `./src/index.js`,
+    entry: `./src/js/index.js`,
 
     output: {
       // 出力ファイルディレクトリ
-      path: `${__dirname}/dist`,
+      path: path.resolve(__dirname, 'dist'),
       // 出力ファイル名
-      filename: 'index.js'
+      filename: 'js/index.js'
     },
 
     // mode値が production だと最適化される
@@ -21,10 +23,33 @@ module.exports = [
       open: true // 自動的にブラウザが立ち上がる
     },
 
+    module: {
+      rules: [
+        {
+          test: /\.pug$/,
+          use: [
+            {
+              loader: "pug-loader",
+              options: {
+                pretty: true,
+              },
+            },
+          ],
+        },
+      ]
+    },
+
     plugins: [
       // THREE.Scene などの形式で three.js のオブジェクトを使用できるようにする
       new webpack.ProvidePlugin({
         THREE: 'three/build/three'
+      }),
+
+      new HtmlWebpackPlugin({
+        template: "./src/index.pug", // 変換元のPugファイルの指定
+        filename: "index.html", // 出力するHTMLのファイル名
+        inject: false, // バンドルしたjsファイルを読み込むscriptタグを自動出力しない
+        minify: false, // minifyしない
       }),
     ]
   }
