@@ -3,6 +3,13 @@ html(lang="ja")
     meta(charset="UTF-8")
     meta(name="viewport", content="width=device-width, initial-scale=1.0")
     title three.js demo
+    style(type="text/css").
+      * {
+        margin: 0; padding: 0;
+      }
+      html, body {
+        overflow: hidden;
+      }
     script(src="./js/index.js" defer)
   body
-    canvas.canvas
+    div.webgl
